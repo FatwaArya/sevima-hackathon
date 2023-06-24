@@ -1,12 +1,19 @@
-import Chat from "@/components/chat";
+import { Chat } from "@/components/chat/chat";
 
 
 const Home = () => {
     return (
-        <div>
-            <h1>Home</h1>
-            <Chat />
-        </div>
+        <>
+            <Chat id="1" initialMessages={
+                [
+                    {
+                        "id": "1",
+                        "content": "Hello",
+                        "role": "user"
+                    },
+                ]
+            } />
+        </>
     );
 }
 
