@@ -45,6 +45,7 @@ export function ChatPanel({
     messages,
 }: ChatPanelProps) {
     const { data: instructor } = api.instructor.getInstructor.useQuery()
+    const instructorState = useInstructorStore(state => state.instructor)
     const selectInstructor = useInstructorStore(state => state.setInstructor)
     return (
         <div className="fixed inset-x-0 bottom-0 bg-gradient-to-b from-muted/10 from-10% to-muted/30 to-50%">
@@ -77,7 +78,10 @@ export function ChatPanel({
                         (value) => {
                             selectInstructor(value)
                         }
-                    }>
+                    }
+                        // set null if value empty string
+                        value={instructorState || undefined}
+                    >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select a Instructor" />
                         </SelectTrigger>

@@ -55,7 +55,7 @@ export function PromptForm({
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Link
-                                href="/"
+                                href="/home"
                                 className={cn(
                                     buttonVariants({ size: 'sm', variant: 'outline' }),
                                     'absolute left-0 top-4 h-8 w-8 rounded-full bg-background p-0 sm:left-4'
@@ -78,7 +78,7 @@ export function PromptForm({
                         !instructor
                     }
                     onChange={e => setInput(e.target.value)}
-                    placeholder="Send a message."
+                    placeholder="Ask a question"
                     spellCheck={false}
                     className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
                 />
@@ -90,7 +90,9 @@ export function PromptForm({
                                 <Button
                                     type="submit"
                                     size="icon"
-                                    disabled={isLoading || input === ''}
+                                    disabled={
+                                        !instructor || !input || isLoading
+                                    }
                                 >
                                     <CornerDownLeft className='h-4 w-4' />
                                     <span className="sr-only">Send message</span>
