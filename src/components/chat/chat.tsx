@@ -5,6 +5,8 @@ import { ChatPanel } from '@/components/chat/chat-panel'
 import { cn } from '@/lib/utils'
 import { ChatList } from '@/components/chat/chat-list'
 import { EmptyScreen } from '@/components/chat/empty-screen'
+import toast from 'react-hot-toast'
+import { useInstructorStore } from '@/store/instructor-store'
 
 export interface ChatProps extends React.ComponentProps<'div'> {
     initialMessages?: Message[]
@@ -12,16 +14,19 @@ export interface ChatProps extends React.ComponentProps<'div'> {
 }
 
 export function Chat({ id, initialMessages, className }: ChatProps) {
-    const { messages, append, reload, stop, isLoading, input, setInput } = useChat({
+    const instructor = useInstructorStore(state => state.instructor)
+    const { messages, append, reload, stop, isLoading, input, setInput, } = useChat({
         initialMessages,
         id,
-        // onResponse(response) {
-        //     if (response.status === 401) {
-        //         toast.error(response.statusText)
-        //     }
-        // }
+        body: {
+            instructor
+        },
+        onResponse(response) {
+            if (response.status === 401) {
+                toast.error(response.statusText)
+            }
+        }
     })
-
     return (
         <>
             <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>

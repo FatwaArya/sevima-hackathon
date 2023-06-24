@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/tooltip'
 // import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
 import { PlusIcon, CornerDownLeft } from 'lucide-react'
+import { useInstructorStore } from '@/store/instructor-store'
 
 export interface PromptProps
     extends Pick<UseChatHelpers, 'input' | 'setInput'> {
@@ -28,6 +29,7 @@ export function PromptForm({
 }: PromptProps) {
     const { formRef, onKeyDown } = useEnterSubmit()
     const inputRef = React.useRef<HTMLTextAreaElement>(null)
+    const instructor = useInstructorStore(state => state.instructor)
 
     React.useEffect(() => {
         if (inputRef.current) {
@@ -72,6 +74,9 @@ export function PromptForm({
                     onKeyDown={onKeyDown}
                     rows={1}
                     value={input}
+                    disabled={
+                        !instructor
+                    }
                     onChange={e => setInput(e.target.value)}
                     placeholder="Send a message."
                     spellCheck={false}

@@ -1,5 +1,5 @@
 import { createTRPCRouter } from "@/server/api/trpc";
-import { instructorRouter } from "./routers/chat";
+import { instructorRouter } from "./routers/instructor";
 
 /**
  * This is the primary router for your server.

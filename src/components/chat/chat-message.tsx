@@ -7,6 +7,8 @@ import { CodeBlock } from '@/components/ui/codeblock'
 import { MemoizedReactMarkdown } from '@/components/markdown'
 import { IconOpenAI } from '@/components/ui/icons'
 import { User } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { useSession } from 'next-auth/react'
 // import { ChatMessageActions } from '@/components/chat-message-actions'
 
 export interface ChatMessageProps {
@@ -14,6 +16,7 @@ export interface ChatMessageProps {
 }
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
+    const { data: session } = useSession();
     return (
         <div
             className={cn('group relative mb-4 flex items-start md:-ml-12')}
@@ -27,7 +30,12 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                         : 'bg-primary text-primary-foreground'
                 )}
             >
-                {message.role === 'user' ? <User /> : <IconOpenAI />}
+                {message.role === 'user' ? (
+                    <Avatar>
+                        <AvatarImage src={session?.user.image as string} />
+                        <AvatarFallback>{session?.user.name as string}</AvatarFallback>
+                    </Avatar>
+                ) : <IconOpenAI />}
             </div>
             <div className="ml-4 flex-1 space-y-2 overflow-hidden px-1">
                 <MemoizedReactMarkdown
