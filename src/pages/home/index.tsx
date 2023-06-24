@@ -2,11 +2,15 @@ import { Chat } from "@/components/chat/chat";
 import { MainNav } from "@/components/main-nav";
 import { UserNav } from "@/components/user-nav";
 import { Command } from "lucide-react";
+import Head from "next/head";
 
 
 const Home = () => {
     return (
         <>
+            <Head>
+                <title>Sage Inc | Learning</title>
+            </Head>
             <div className="hidden flex-col md:flex">
                 <div className="border-b">
                     <div className="flex h-16 items-center px-4">
